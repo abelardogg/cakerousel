@@ -1,0 +1,49 @@
+body{background-color:#666; font-family: arial}
+/*-----------------------------------------------------*/
+.cakerousel-container{
+	width: 992px;
+	height: 550px;
+	position: relative;
+}
+
+.cakerousel-container .cakerousel-control-l,
+.cakerousel-container .cakerousel-control-r{
+	position: absolute;
+}
+.cakerousel-container .cakerousel-control-l{
+	background-color: rgba(0,0,0,.3);
+	top: 0;
+	width: 100px;
+	height: 550px;		
+}
+.cakerousel-container .cakerousel-control-r{
+	background-color: rgba(0,0,0,.3);
+	top: 0;
+	width: 100px;
+	height: 550px;
+	right: 0;
+}
+
+.cakerousel-slider{
+	width: 992px;
+	height: 550px;
+}
+.cakerousel-slider img {
+	width: 992px;
+	height: 550px;
+}
+
+.cakerousel-elements {
+	margin-top: 0;
+	list-style: none;
+	overflow: hidden;
+	width: auto;
+	white-space: nowrap;
+	padding:0;
+}
+.cakerousel-element {
+	display: inline-block;
+}
+.cakerousel-element:not(:first-child){
+		margin-left:-4px;
+}
