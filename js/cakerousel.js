@@ -7,7 +7,10 @@ var speedScroll = 400;
 var scrollAmount = 992;
 var firstSlice = $('.cakerousel-element')[0];
 var lastSlice = $('.cakerousel-element')[($('.cakerousel-element').length-1)];
-		 
+var tid = setInterval(function(){
+				nextSlice();
+			}, 1500);
+
 
 $('#pos-value-l').text(currentPos);
 $('#pos-value-r').text(currentPosEnd);
@@ -15,9 +18,23 @@ $('#width-value').text(totalWidth);
 $('#img-qty').text(getQuantityCarouselElements());
 
 $(document).ready(function(){
-	if($('.cakerousel-slider').hasClass('auto')){
-		var tid = setInterval(nextSlice, 1500);
-	 }
+
+
+	$(window).focus(function() {
+
+		if($('.cakerousel-slider').hasClass('auto')){
+			tid = setInterval(function(){
+				nextSlice();
+			}, 1500);
+		 }
+
+
+	});
+
+	$(window).blur(function() {
+    	clearInterval(tid);
+	});
+
 });
 
 $(".cakerousel-control-r").click(function(){
