@@ -8,6 +8,7 @@ body{background-color:#666; font-family: arial}
 
 .cakerousel-container .cakerousel-control-l,
 .cakerousel-container .cakerousel-control-r{
+	border: 0;
 	position: absolute;
 }
 .cakerousel-container .cakerousel-control-l{
@@ -37,13 +38,11 @@ body{background-color:#666; font-family: arial}
 	margin-top: 0;
 	list-style: none;
 	overflow: hidden;
+/* 	overflow-x: scroll; */
 	width: auto;
 	white-space: nowrap;
 	padding:0;
 }
 .cakerousel-element {
 	display: inline-block;
-}
-.cakerousel-element:not(:first-child){
-		margin-left:-4px;
 }
