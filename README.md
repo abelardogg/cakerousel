@@ -45,7 +45,7 @@ The key values are very descriptive by themselves, the only two important keys t
 
 and just call the following method and pass two parameters, our carousel `id` and the `configuration object`
 ```javascript
-    startCarousel('#onea-home-carousel',testValues );
+    startCarousel('#chococake',testValues );
 ```
 thats why we need an `id` attribute on out HTML, also, since we are using jQuery we need to add the '#' character to our string parameter, you can use a clase `instead` of `id` but id's are faster than classes
  
