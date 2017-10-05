@@ -11,48 +11,37 @@ $(document).ready(function(){
 
 startCarousel('#chococake',testValues )
 
-function startCarousel(carouselID, valuesObject){
-	if($(carouselID).length>0){
-		var totalWidth = getTotalWidth(carouselID)
+   function startCarousel(carouselID, valuesObject){
+        if($(carouselID).length>0){
+            var totalWidth = getTotalWidth(carouselID);
+            var firstSlice = $(carouselID+' .cakerousel-element')[0];
+            var lastSlice = $(carouselID+' .cakerousel-element')[($('.cakerousel-element').length-1)];
+            var objSlices = {
+                firstSlice:firstSlice,
+                lastSlice:lastSlice
+            };
 
-		var firstSlice = $(carouselID+' .cakerousel-element')[0];
-		var lastSlice = $(carouselID+' .cakerousel-element')[($('.cakerousel-element').length-1)];
-		var objSlices = {
-			firstSlice:firstSlice,
-			lastSlice:lastSlice
-		}
-		//var timer;		
-		
-		window.addEventListener('focus', function() {
-				document.title = 'active tab';
-				autoPlay(carouselID, valuesObject, objSlices, totalWidth);
-		},false);
-		
-		window.addEventListener('blur', function() {
-				document.title = 'unactive tab';
-				stopAutoPlay(valuesObject);
-		},false);
-		
-		$(carouselID+' .cakerousel-control-r').on('click', function(){
-				console.log('click R button')
-				nextSlice(carouselID, valuesObject, objSlices, totalWidth);
-				console.log(objSlices.lastSlice);
-				//console.log($(carouselID+' .cakerousel-element'));
-		});
+            if($(carouselID+' .cakerousel-slider').hasClass('auto')){
+                window.addEventListener('focus', function() {
+                    console.log(carouselID+' active');
+                    autoPlay(carouselID, valuesObject, objSlices, totalWidth);
+                },false);
 
-		$(carouselID+' .cakerousel-control-l').on('click', function(){
-				console.log('click L button')		
-				
-				previousSlice(carouselID, valuesObject, objSlices);
-				console.log(objSlices.firstSlice);
-				//console.log($(carouselID+' .cakerousel-element'));
-		});
-		
-		
-		// console.log(valuesObject);
-		testingStuff();
-	}
-}
+                window.addEventListener('blur', function() {
+                    console.log(carouselID+' inactive');
+                    stopAutoPlay(valuesObject);
+                },false);
+            }
+
+            $(carouselID+' .cakerousel-control-r').on('click', function(){
+                nextSlice(carouselID, valuesObject, objSlices, totalWidth);
+            });
+
+            $(carouselID+' .cakerousel-control-l').on('click', function(){
+                previousSlice(carouselID, valuesObject, objSlices);
+            });
+        }
+    }
 
 
 function autoPlay(carouselID, obj, objSlices, totalWidth){
@@ -60,11 +49,10 @@ function autoPlay(carouselID, obj, objSlices, totalWidth){
         nextSlice(carouselID, obj, objSlices, totalWidth);
             }, obj.autoScrollTime);
 }
+
 function stopAutoPlay(obj) {
     clearInterval(obj.timer);
 }
-
-
 
 function nextSlice(carouselID, obj, objSlices, totalWidth){
     if(obj.currentPos<totalWidth && obj.currentPosEnd+obj.scrollAmount<totalWidth){
@@ -102,14 +90,12 @@ function jumpToLast(carouselID, obj){
     $(carouselID+' .cakerousel-elements').animate({scrollLeft:obj.currentPos},obj.speedScroll);
 }
 
-
-
 function getQuantityCarouselElements(carouselID){
     return $(carouselID+' .cakerousel-element').length;
 }
 
 function getTotalWidth(carouselID){
-    totalWidth=0;
+    var totalWidth=0;
     for(var i = 0;  i < $(carouselID+' .cakerousel-element').length; i++){
         totalWidth+=$($(carouselID+' .cakerousel-element')[i]).width()
     }
@@ -130,39 +116,15 @@ function fromLastToFirst(carouselID, obj, objSlices){
 }
 
 function fromFirstToLast(carouselID, obj, objSlices){
-    //move the last image to the first place
     $(objSlices.lastSlice).insertBefore(objSlices.firstSlice);
-    //moves the slider to the old first image
     obj.currentPosEnd+=obj.scrollAmount;
     obj.currentPos+=obj.scrollAmount;
     $(carouselID+' .cakerousel-elements').animate({scrollLeft:obj.currentPos},0);
-    //reads who is the new first element and who is the new last
     objSlices.firstSlice = $(carouselID+' .cakerousel-element')[0];
     objSlices.lastSlice = $(carouselID+' .cakerousel-element')[($(carouselID+' .cakerousel-element').length-1)];
-    //perform the scroll
     obj.currentPosEnd-=obj.scrollAmount;
     obj.currentPos-=obj.scrollAmount;
     $(carouselID+' .cakerousel-elements').animate({scrollLeft:obj.currentPos},obj.speedScroll);
 }
-
-
-//testing stuff
-
-function testingStuff(){
-	$('#carousel-exists').text('true!')
-	/*$('#pos-value-l').text(currentPos);
-	$('#pos-value-r').text(currentPosEnd);
-	$('#width-value').text(totalWidth);
-	$('#img-qty').text(getQuantityCarouselElements());*/
-}
-
-
-/*$('button').on('click', function(){
-	$('#pos-value-l').text(currentPos)
-	$('#pos-value-r').text(currentPosEnd)
-});
-*/
-
-
 
 });
