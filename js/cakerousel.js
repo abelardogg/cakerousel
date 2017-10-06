@@ -20,8 +20,9 @@ startCarousel('#chococake',testValues )
                 firstSlice:firstSlice,
                 lastSlice:lastSlice
             };
-            autoPlay(carouselID, valuesObject, objSlices, totalWidth);
+            
             if($(carouselID+' .cakerousel-slider').hasClass('auto')){
+                autoPlay(carouselID, valuesObject, objSlices, totalWidth);
                 window.addEventListener('focus', function() {
                     console.log('active tab');
                     stopAutoPlay(valuesObject);
